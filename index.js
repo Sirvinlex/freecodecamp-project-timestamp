@@ -30,7 +30,7 @@ const handler = (req, res) =>{
 console.log(typeof new Date(date), 'date')
 
 if(dateArr.length > 1){
-  if (new Date(date) !== "Invalid Date"){
+  if (new Date(date).toUTCString() !== "Invalid Date"){
     let unix;
     if (dateArr.length === 3){
       unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]), Number(dateArr[2]))
@@ -48,7 +48,7 @@ if(dateArr.length > 1){
   }
   
 }else{
-  if (new Date(Number(date)) !== "Invalid Date"){
+  if (new Date(Number(date)).toUTCString() !== "Invalid Date"){
     res.json({
       "unix": Number(date),
       "utc": new Date(Number(date)).toUTCString()
