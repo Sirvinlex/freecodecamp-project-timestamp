@@ -32,7 +32,7 @@ console.log(typeof new Date(date), 'date')
 if(dateArr.length === 1){
   if (new Date(Number(date)).toUTCString() !== "Invalid Date"){
     res.json({
-      "unix": Number(date),
+      "unix": Date.UTC(Number(dateArr[0])),
       "utc": new Date(Number(date)).toUTCString()
     });
   }else{
