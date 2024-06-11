@@ -29,19 +29,7 @@ const handler = (req, res) =>{
   const dateArr = date.split('-');
 console.log(typeof new Date(date), 'date')
 
-if(dateArr.length === 1){
-  if (new Date(Number(date)).toUTCString() !== "Invalid Date"){
-    res.json({
-      "unix": Date.UTC(Number(dateArr[0])),
-      "utc": new Date(Number(date)).toUTCString()
-    });
-  }else{
-    res.json({
-      "error": "Invalid Date"
-    })
-  }
-  
-}else{
+if(dateArr.length > 1){
   if (new Date(date).toUTCString() !== "Invalid Date"){
     // console.log(new Date(date).toUTCString())
     // console.log(Date.UTC(Number(dateArr[0]), Number(dateArr[1]), Number(dateArr[2])))
@@ -54,6 +42,18 @@ if(dateArr.length === 1){
     res.json({
       "unix": unix,
       "utc": new Date(date).toUTCString()
+    });
+  }else{
+    res.json({
+      "error": "Invalid Date"
+    })
+  }
+  
+}else{
+  if (new Date(Number(date)).toUTCString() !== "Invalid Date"){
+    res.json({
+      "unix": Date.UTC(Number(dateArr[0])),
+      "utc": Number(date)
     });
   }else{
     res.json({
