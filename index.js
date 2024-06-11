@@ -52,8 +52,8 @@ if(dateArr.length > 1){
 }else{
   if (new Date(Number(date)).toUTCString() !== "Invalid Date"){
     res.json({
-      "unix": Date.UTC(Number(dateArr[0])),
-      "utc": Number(date)
+      "unix": Number(date),
+      "utc": new Date(Number(date)).toUTCString()
     });
   }else{
     res.json({
