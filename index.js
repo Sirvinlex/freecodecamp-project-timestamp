@@ -28,7 +28,7 @@ const handler = (req, res) =>{
   const { date } = req.params;
   const dateArr = date.split('-');
 console.log(typeof new Date(date), 'date')
-if (new Date(date).toUTCString() !== "Invalid Date"){
+if (new Date(date) !== "Invalid Date"){
   let unix;
   if (dateArr.length === 3){
     unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]), Number(dateArr[2]))
