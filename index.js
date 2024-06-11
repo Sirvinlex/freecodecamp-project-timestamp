@@ -23,21 +23,67 @@ app.get("/", function (req, res) {
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
-
+//6
 const handler = (req, res) =>{
+  const { date } = req.params;
+  const dateArr = date.split('-');
+console.log(typeof new Date(date), 'date')
+
+if(dateArr.length === 1){
+  if (new Date(Number(date)).toUTCString() !== "Invalid Date"){
+    res.json({
+      "unix": Number(date),
+      "utc": new Date(Number(date)).toUTCString()
+    });
+  }else{
+    res.json({
+      "error": "Invalid Date"
+    })
+  }
+  
+}else{
+  if (new Date(date).toUTCString() !== "Invalid Date"){
+    // console.log(new Date(date).toUTCString())
+    // console.log(Date.UTC(Number(dateArr[0]), Number(dateArr[1]), Number(dateArr[2])))
+    let unix;
+    if (dateArr.length === 3){
+      unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]), Number(dateArr[2]))
+    }else if(dateArr.length === 2){
+      unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]))
+    }
+    res.json({
+      "unix": unix,
+      "utc": new Date(date).toUTCString()
+    });
+  }else{
+    res.json({
+      "error": "Invalid Date"
+    })
+  }
+}
+ 
+}
+
+// const handler2 = (req, res) =>{
+//   const { unix } = req.params;
+//   console.log(unix)
+//   res.json({
+//     "unix": Number(unix),
+//     "utc": new Date(Number(unix)).toUTCString()
+//   });
+// }
+const handler3 = (req, res) =>{
   res.json({
-    "unix": 1451001600000,
-    "utc": "Fri, 25 Dec 2015 00:00:00 GMT"
+    "unix": Date.now(),
+    "utc": new Date().toUTCString()
   });
 }
-const handler2 = (req, res) =>{
-  res.json({
-    "unix": 1451001600000,
-    "utc": "Fri, 25 Dec 2015 00:00:00 GMT"
-  });
-}
-app.get("/api/2015-12-25", handler)
-app.get("/api/1451001600000", handler2)
+app.get("/api", handler3)
+app.get("/api/:date", handler)
+// app.get("/api/:unix", handler2)
+
+// console.log(new Date(2015-12-25).toUTCString())
+
 
 // Listen on port set in environment variable or default to 3000
 var listener = app.listen(process.env.PORT || 3000, function () {
