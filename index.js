@@ -26,19 +26,19 @@ app.get("/api/hello", function (req, res) {
 //6
 const handler = (req, res) =>{
   const { date } = req.params;
-  const dateArr = date.split('-');
-console.log(typeof new Date(date), 'date')
+  // const dateArr = date.split('-');
+console.log(new Date(date).toDateString(), 'date')
 
 if(dateArr.length > 1){
   if (new Date(date).toUTCString() !== "Invalid Date"){
-    let unix;
-    if (dateArr.length === 3){
-      unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]), Number(dateArr[2]))
-    }else if(dateArr.length === 2){
-      unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]))
-    }
+    // let unix;
+    // if (dateArr.length === 3){
+    //   unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]), Number(dateArr[2]))
+    // }else if(dateArr.length === 2){
+    //   unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]))
+    // }
     res.json({
-      "unix": unix,
+      "unix": Date.parse(new Date(date).toDateString()),
       "utc": new Date(date).toUTCString()
     });
   }else{
