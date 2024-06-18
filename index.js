@@ -26,17 +26,12 @@ app.get("/api/hello", function (req, res) {
 //6
 const handler = (req, res) =>{
   const { date } = req.params;
-  // const dateArr = date.split('-');
-console.log(new Date(date).toDateString(), 'date')
+  const dateArr = date.split('-');
+console.log(Date.parse(new Date(date).toDateString()) , 'date')
 
 if(dateArr.length > 1){
   if (new Date(date).toUTCString() !== "Invalid Date"){
-    // let unix;
-    // if (dateArr.length === 3){
-    //   unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]), Number(dateArr[2]))
-    // }else if(dateArr.length === 2){
-    //   unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]))
-    // }
+    
     res.json({
       "unix": Date.parse(new Date(date).toDateString()),
       "utc": new Date(date).toUTCString()
@@ -87,3 +82,10 @@ app.get("/api/:date", handler)
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+// let unix;
+    // if (dateArr.length === 3){
+    //   unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]), Number(dateArr[2]))
+    // }else if(dateArr.length === 2){
+    //   unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]))
+    // }
