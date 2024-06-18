@@ -27,10 +27,10 @@ app.get("/api/hello", function (req, res) {
 const handler = (req, res) =>{
   const { date } = req.params;
   const dateArr = date.split('-');
-console.log(Date.parse(new Date(date).toDateString()) , 'date')
-console.log(new Date(date).toDateString() , 'date')
+// console.log(Date.parse(new Date(date).toDateString()) , 'date')
+console.log(new Date(date), 'date')
 
-if(dateArr.length > 1){
+if(new Date(Number(date)).toDateString() === "Invalid Date"){
   if (new Date(date).toUTCString() !== "Invalid Date"){
     
     res.json({
@@ -44,29 +44,10 @@ if(dateArr.length > 1){
   }
   
 }else{
-  if (date.length > 4){
-    if (new Date(Number(date)).toUTCString() !== "Invalid Date"){
-      res.json({
-        "unix": Number(date),
-        "utc": new Date(Number(date)).toUTCString()
-      });
-    }else{
-      res.json({
-        "error": "Invalid Date"
-      })
-    }
-  }else{
-    if (new Date(date).toUTCString() !== "Invalid Date"){
-      res.json({
-        "unix": Number(date),
-        "utc": new Date(Number(date)).toUTCString()
-      });
-    }else{
-      res.json({
-        "error": "Invalid Date"
-      })
-    }
-  }
+  res.json({
+    "unix": Number(date),
+    "utc": new Date(Number(date)).toUTCString()
+  });
   
 }
  
@@ -103,4 +84,30 @@ var listener = app.listen(process.env.PORT || 3000, function () {
     //   unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]), Number(dateArr[2]))
     // }else if(dateArr.length === 2){
     //   unix = Date.UTC(Number(dateArr[0]), Number(dateArr[1]))
+    // }
+
+
+
+    // if (date.length > 4){
+    //   if (new Date(Number(date)).toUTCString() !== "Invalid Date"){
+    //     res.json({
+    //       "unix": Number(date),
+    //       "utc": new Date(Number(date)).toUTCString()
+    //     });
+    //   }else{
+    //     res.json({
+    //       "error": "Invalid Date"
+    //     })
+    //   }
+    // }else{
+    //   if (new Date(date).toUTCString() !== "Invalid Date"){
+    //     res.json({
+    //       "unix": Number(date),
+    //       "utc": new Date(Number(date)).toUTCString()
+    //     });
+    //   }else{
+    //     res.json({
+    //       "error": "Invalid Date"
+    //     })
+    //   }
     // }
